@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/dash', to: 'pages#dash'
   get '/cmpny', to: 'pages#companydash'
   get '/crtv', to: 'pages#creativedash'
+  get '/proposals', to: 'proposals#index'
   get '/proposals/:id/sign', to: 'proposals#sign', as: "sign"
   patch '/proposals/:id/sign', to: 'proposals#sign_check', as: "verify"
   delete '/proposals/:id/delete', to: 'proposals#destroy', as: "delete"

@@ -1,5 +1,15 @@
 class ProposalsController < ApplicationController
 
+  def index
+    if current_admin
+      @proposals = current_admin.proposals
+      render json: @proposals
+    else
+      @proposals = current_user.proposals
+      render json: @proposals
+    end
+  end
+
   def new
     if admin_signed_in?
       @proposal = Proposal.new
@@ -30,7 +40,6 @@ class ProposalsController < ApplicationController
           @user.admin = current_admin
           current_admin.users << @user
           @proposal = @user.proposals.create(proposal_params)
-          @proposal.save
           current_admin.save
           @user.save
         end
@@ -80,6 +89,7 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     if current_admin
       @proposals = current_admin.proposals
+      render json: @proposals
     else
       @proposals = current_user.proposals
     end
@@ -131,7 +141,7 @@ class ProposalsController < ApplicationController
   end
 
   def proposal_params
-    params.require(:proposal).permit(:user_id, :email, :title, :signer, :budget, :why_me, :milestones_attributes => [:id, :content, :due_date], :fees_attributes => [:id, :content, :price_breakdown])
+    params.require(:proposal).permit(:url, :user_id, :email, :title, :signer, :budget, :why_me, :milestones_attributes => [:id, :content, :due_date], :fees_attributes => [:id, :content, :price_breakdown])
   end
 
   def milestone_params

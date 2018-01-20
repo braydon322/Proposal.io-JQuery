@@ -16,6 +16,11 @@ class Proposal < ActiveRecord::Base
     total_earned
   end
 
+  def url=(url)
+    self.url = url
+  end
+
+
   def self.total_projects(current_admin)
     current_admin.proposals.size
   end
