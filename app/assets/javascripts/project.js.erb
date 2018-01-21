@@ -91,6 +91,16 @@ function listenersReady(){
         loadProposal(data);
       });
     });
+
+    $("#new-proposal").on("click", function (event) {
+      event.preventDefault();
+      $("#nav").css('padding-left', '0px').animate({opacity: .1});
+      $("#layout").css('padding-left', '0px');
+      $("#nav").remove();
+
+      $("#list").css('padding-left', '0px').remove();
+      $("#main").css('float', 'left');
+    });
 }
 
 $(document).ready(function() {

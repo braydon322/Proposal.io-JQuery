@@ -49,20 +49,11 @@
 
         <div class="nav-inner">
             <a href="<%= edit_admin_registration_path %>"><img src="<%= current_admin.avatar.url(:medium) %>" style="border-radius: 100%; height: 75px; width: 75px;" class="profile-pic"></a>
-            <a href= <%=new_proposal_path %>><button class="primary-button pure-button">New Proposal</button></a>
+            <button class="primary-button pure-button" id="new-proposal">New Proposal</button>
             <div class="pure-menu">
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a href="<%=crtv_path%>" class="pure-menu-link">Projects <span class="email-count">(<%= @proposals.size %>)</span></a></li>
-                    <li class="pure-menu-heading">Sort By</li>
-                    <li class="pure-menu-item"><a href="/crtv?sort=price_up" class="pure-menu-link"><span class="email-label-personal"></span>Price</a></li>
-                    <li class="pure-menu-item"><a href="/crtv?sort=date_up" class="pure-menu-link"><span class="email-label-work"></span>Date<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></a></li>
-                    <li class="pure-menu-item"><a href="/crtv?sort=signed" class="pure-menu-link"><span class="email-label-travel"></span>Signed<span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></li>
-                    <li class="pure-menu-item"><a href="/crtv?sort=unsigned" class="pure-menu-link"><span class="email-label-travel"></span>Not-Signed<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
-                    <br>
-                    <br>
                     <li class="pure-menu-item"><%= link_to "Sign Out", destroy_admin_session_path, method: "delete", class: "pure-menu-link" %></li>
                 </ul>
-
             </div>
         </div>
     </div>
@@ -225,12 +216,6 @@
                           Prepared for <a>{{email}}</a>
                       </p>
                   </div>
-
-                  <div class="email-content-controls pure-u-1-2">
-                    lkcvm
-                  </div>
-
-
 
                 </div>
                   <div class="email-content-body">
