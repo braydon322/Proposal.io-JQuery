@@ -1,0 +1,104 @@
+var timesClicked = 0;
+
+function deleteProposal(id){
+  debugger
+}
+
+function loadProposal(proposals) {
+  var html =[];
+  proposals.forEach(function(individual){
+    var proposal = {
+      function: "viewProposal(" + individual.id + ");",
+      budget:individual.budget,
+      email: individual.email,
+      id:individual.id,
+      invoice_paid: individual.invoice_paid,
+      proposal_accepted: individual.proposal_accepted,
+      signer: individual.signer,
+      terms: individual.terms,
+      title: individual.title,
+      user_id:individual.user_id,
+    }
+
+    var template = Handlebars.compile(document.getElementById("proposal-template").innerHTML);
+    var result = template(proposal);
+    html.push(result)
+  });
+  $('#fill-proposals').html(html)
+}
+
+
+
+function showProposal(data) {
+  var proposal = {
+    id: data.id,
+    budget: data.budget,
+    email: data.email,
+    invoice_paid: data.invoice_paid,
+    proposal_accepted: data.proposal_accepted,
+    signer: data.signer,
+    terms: data.terms,
+    title: data.title,
+    user_id: data.user_id,
+    why_me: data.why_me
+  }
+
+  var template = Handlebars.compile(document.getElementById("single-proposal-template").innerHTML);
+  var result = template(proposal);
+  $("#main").html(result)
+  $("#milestones").html(addMilestones(data))
+  $("#fees").html(addFees(data))
+}
+
+
+function addMilestones(data){
+  let html = "";
+  data.milestones.forEach(function(milestone){
+
+    var individualMilestone = {
+      content: milestone.content,
+      due_date: milestone.due_date
+    }
+
+    var milestoneTemplate = Handlebars.compile(document.getElementById("milestone-template").innerHTML);
+    var milestoneResult = milestoneTemplate(individualMilestone);
+    html+=(milestoneResult)
+  });
+  return html;
+}
+
+function addFees(data){
+  let html = "";
+  data.fees.forEach(function(fee){
+
+    var individualFee = {
+      content: fee.content,
+      price_breakdown: fee.price_breakdown
+    }
+
+    var feeeTemplate = Handlebars.compile(document.getElementById("fee-template").innerHTML);
+    var feeResult = feeeTemplate(individualFee);
+    html+=(feeResult)
+  });
+  return html;
+}
+
+
+function listenersReady(){
+    $(".proposal_link").on("click", function () {
+      $(this).remove()
+      $.get("/proposals", function(data) {
+        loadProposal(data);
+      });
+    });
+}
+
+$(document).ready(function() {
+  listenersReady()
+});
+
+function viewProposal(id) {
+  $.get("/proposals/" + id, function(data) {
+    showProposal(data);
+  });
+}

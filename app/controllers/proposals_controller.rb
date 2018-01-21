@@ -3,10 +3,10 @@ class ProposalsController < ApplicationController
   def index
     if current_admin
       @proposals = current_admin.proposals
-      render json: @proposals
+      render json: @proposals, status: 200
     else
       @proposals = current_user.proposals
-      render json: @proposals
+      render json: @proposals, status: 200
     end
   end
 
@@ -89,9 +89,10 @@ class ProposalsController < ApplicationController
     @proposal = Proposal.find(params[:id])
     if current_admin
       @proposals = current_admin.proposals
-      render json: @proposals
+      render json: @proposal, status: 200
     else
       @proposals = current_user.proposals
+      render json: @proposal, status: 200
     end
   end
 
